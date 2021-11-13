@@ -1,11 +1,12 @@
 import React from 'react'
 import 'Logo.css'
 
-const Logo = () => {
+const Logo = ({colorScheme, clicked}) => {
     return (
-        <div>
-            <h1>Logo</h1>
-        </div>
+     <h1 className = {(colorScheme === 'dark') ? "Logo Light" : "Logo Dark" } onClick = {clicked}>
+        My Weather
+
+     </h1>
     )
 }
 

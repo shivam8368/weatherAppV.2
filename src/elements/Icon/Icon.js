@@ -1,11 +1,13 @@
 import React from 'react'
 import './Icon.css'
 
-const Icon = () => {
+const Icon = ({type}) => {
     return (
-        <div>
-            <h1>Icon</h1>
-        </div>
+        <img
+          className = "Icon"
+          src = {require(`../../assets/images/${type}.svg`)}
+          alt = {type}
+        />
     )
 }
 

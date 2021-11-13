@@ -1,10 +1,22 @@
 import React from 'react'
 import './InputField.css'
 
-const InputField = () => {
+const InputField = ({name, type, placeholder, value, handleChange , error, label}) => {
     return (
-        <div>
-            <h1>InputField</h1>
+        <div className = "InputFieldWrapper">
+            <label htmlFor = {name}>{label}</label>
+            <input
+                type={type}
+                id={name}
+                name={name}
+                placeholder={placeholder}
+                value={value}
+                onChange={handleChange}
+                style={(error) ? {'borderBottomColor': assetMapping.colors.error} : null}
+                required 
+            
+            
+            />
         </div>
     )
 }
