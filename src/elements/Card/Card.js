@@ -1,10 +1,10 @@
 import React from 'react'
 import './Card.css'
 
-const Card = () => {
+const Card = ({data}) => {
     return (
         <div className = "Card">
-            {props.children}
+            {data}
         </div>
     )
 }
