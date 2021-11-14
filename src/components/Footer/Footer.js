@@ -1,12 +1,15 @@
 import React from 'react'
 import './Footer.css'
+import Logo from '../../elements/Logo/Logo'
 
 
-const Footer = () => {
+const Footer = ({onClickHandler}) => {
     return (
-        <div>
-            <h1>Footer</h1>
-        </div>
+        
+        <footer className = "Footer">
+            <Logo colorScheme = "dark" clicked = {onClickHandler} />
+            <div className="Separator"></div>
+        </footer>
     )
 }
 

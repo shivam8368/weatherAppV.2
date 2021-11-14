@@ -1,11 +1,13 @@
 import React from 'react'
 import './Header.css'
+import Logo from '../../elements/Logo/Logo'
 
-const Header = () => {
+const Header = ({color, onclickHandler}) => {
     return (
-        <div>
-            <h1>Header</h1>
-        </div>
+        
+        <header className = "header" style = {{backgroundColor : color }}>
+            <Logo colorScheme = {'light'} clicked = {onclickHandler} />
+        </header>
     )
 }
 

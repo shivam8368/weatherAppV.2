@@ -1,7 +1,7 @@
 import React from 'react'
 import './Button.css'
 
-const Button = ({position, type, name, clicked}) => {
+const Button = ({position, type, name, clicked, buttonText}) => {
     return (
         <div className = {( position === 'onForm') ? "ButtonWrapper FormButtonWrapper": "ButtonWrapper"}>
             <button
@@ -9,7 +9,7 @@ const Button = ({position, type, name, clicked}) => {
               name = {name}
               onclick = {clicked}
             
-            >{props.children}</button>
+            >{buttonText}</button>
         </div>
     )
 }

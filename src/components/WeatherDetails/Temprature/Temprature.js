@@ -1,10 +1,10 @@
 import React from 'react'
 import './Temprature.css'
 
-const Temprature = () => {
+const Temprature = ({degrees}) => {
     return (
-        <div>
-            <h1>Temprature</h1>
+        <div className= "TemperatureWrapper">
+            {Math.round({degrees})}<span className= "TemperatureSymbol">°</span>
         </div>
     )
 }

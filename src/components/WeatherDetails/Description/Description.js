@@ -1,10 +1,10 @@
 import React from 'react'
 import './Description.css'
 
-const Description = () => {
+const Description = ({type}) => {
     return (
-        <div>
-            <h1>Description</h1>
+        <div className= "DescriptionWrapper">
+            {type}
         </div>
     )
 }

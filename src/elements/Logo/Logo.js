@@ -1,9 +1,9 @@
 import React from 'react'
-import 'Logo.css'
+import './Logo.css'
 
 const Logo = ({colorScheme, clicked}) => {
     return (
-     <h1 className = {(colorScheme === 'dark') ? "Logo Light" : "Logo Dark" } onClick = {clicked}>
+     <h1 className = {(colorScheme === 'dark') ? "Logo Dark" : "Logo Light" } onClick = {clicked}>
         My Weather
 
      </h1>

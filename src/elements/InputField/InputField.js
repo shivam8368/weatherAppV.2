@@ -1,5 +1,6 @@
 import React from 'react'
 import './InputField.css'
+import assetMapping from '../../assets/assetMapping.json'
 
 const InputField = ({name, type, placeholder, value, handleChange , error, label}) => {
     return (

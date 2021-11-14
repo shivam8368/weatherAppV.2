@@ -1,12 +1,14 @@
 import React from 'react'
 import './Date.css'
+import dateformat from 'dateformat'
 
-const Date = () => {
+const date = () => {
+    const now = new Date();
     return (
-        <div>
-            <h1>Date</h1>
+        <div className="DateWrapper">
+            {dateformat(now, "dddd, mmmm dd")} 
         </div>
     )
 }
 
-export default Date
+export default date

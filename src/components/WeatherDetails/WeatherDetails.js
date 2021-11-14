@@ -1,10 +1,22 @@
 import React from 'react'
 import './WeatherDetails.css'
 
-const WeatherDetails = () => {
+import Icon from '../../elements/Icon/Icon';
+import Temprature from './Temprature/Temprature';
+import Description from './Description/Description';
+import Date from './Date/Date';
+
+const WeatherDetails = ({descriptionText = "Snow", temperature}) => {
     return (
-        <div>
-            <h1>WeatherDetails</h1>
+        <div className= "WeatherDetailsWrapper">
+            <div className= "WeatherIconWrapper">
+                <Icon type={descriptionText} />    
+            </div>
+            <div className= "WeatherDataWrapper">
+                <Temprature degrees={temperature} />
+                <Description type={descriptionText} />
+                <Date />
+            </div>
         </div>
     )
 }

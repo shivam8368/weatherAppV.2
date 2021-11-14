@@ -1,12 +1,15 @@
 import React from 'react'
 import "./Preview.css"
+import PreviewImg from '../../assets/images/Preview.svg'
 
 const Preview = () => {
     return (
-        <div>
-            <h1>Preview</h1>
-        </div>
-    )
+        <img 
+            src = {PreviewImg}
+            alt = "Weather App Icon"
+            className = "Preview"
+        />
+    );
 }
 
 export default Preview
