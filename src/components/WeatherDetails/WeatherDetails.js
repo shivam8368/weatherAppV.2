@@ -6,7 +6,7 @@ import Temprature from './Temprature/Temprature';
 import Description from './Description/Description';
 import Date from './Date/Date';
 
-const WeatherDetails = ({descriptionText = "Snow", temperature}) => {
+const WeatherDetails = ({descriptionText, temperature}) => {
     return (
         <div className= "WeatherDetailsWrapper">
             <div className= "WeatherIconWrapper">

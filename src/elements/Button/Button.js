@@ -7,7 +7,7 @@ const Button = ({position, type, name, clicked, buttonText}) => {
             <button
               type = {type}
               name = {name}
-              onclick = {clicked}
+              onClick = {clicked}
             
             >{buttonText}</button>
         </div>

@@ -2,6 +2,7 @@ import react, {useState} from 'react';
 
 import './App.css';
 import Axios from 'axios';
+import { MoonLoader } from 'react-spinners'
 
 // Components
 import assetMapping from '../../assets/assetMapping.json';
@@ -17,7 +18,7 @@ import ErrorNotice from '../../components/ErrorNotice/ErrorNotice';
 const App = () => {
   
   const [searchInput, setSearchInput] = useState('');
-  const [temprature, setTemprature] = useState(null);
+  const [temprature, setTemprature] = useState(0);
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -26,7 +27,6 @@ const App = () => {
   // Update state with current search bar input
 
   const searchBarHandler = (e) => {
-     e.preventDefault();
      setSearchInput(e.target.value);
 
   };
@@ -44,10 +44,9 @@ const App = () => {
 
   // Fetch weather information and update state
   const updateWeather = () => {
-    const city = {searchInput}
     const API_KEY = "c51cdb45bfc78f8fb3e3a788ef360064"
     const API_URL = 'https://api.openweathermap.org/data/2.5/weather';
-    const URL = API_URL + `?q=${city}&appid=${API_KEY}&units=metric`;
+    const URL = API_URL + `?q=${searchInput}&appid=${API_KEY}&units=metric`;
     // setSearchInput('');
     // setDescription('');
     // setTemprature(null);
@@ -55,29 +54,69 @@ const App = () => {
     // setLoading(true);
 
     Axios.get(URL)
-    .then(res => res.json())
-    .then(result => console.log(result))
-    
+    .then(res => {
+      
+        if (res.data.cod === 200) {
+
+          setLoading(false);
+          setTemprature(res.data.main.temp);
+          setDescription(res.data.weather[0].main);
+          setSearchInput('');
+          console.log(res.data);
+
+        } else {
+          throw res.data.cod
+        };
+
+      })
+    .catch(err => {
+      console.log(err);
+      setLoading(false);
+      setError(true)
+      }
+
+    )
 
   }
 
 
+  const renderCardContent =  () => {
+
+    let cardContent = <Preview />
+
+    if (loading) {
+      cardContent = <MoonLoader />
+    } else if (error) {
+      cardContent = <ErrorNotice onChangeHandler = {tryAgainHandler} />
+    } else if (temprature && description !== '') {
+      cardContent = <WeatherDetails descriptionText = {description} temperature = {temprature} />
+    };
+
+
+    return cardContent 
+
+  };
+
+
+
   return (
     <div className="App">
-      {/* <Header
+      <Header
           color={assetMapping.colors[
             // Set header color based on weather condition; if error, set color to red
-            (error === true) ? "error" : {description}
+            (error) ? "error" : `"${description}"`
           ]}
-          onClickHandler={tryAgainHandler} /> */}
+          onClickHandler={tryAgainHandler} />
         <main className="AppMain">
           <SearchBar
             value={searchInput}
-            onChangeHandler={e => setSearchInput(e.target.value)}
+            onChangeHandler={searchBarHandler}
             onClickHandler={updateWeather}
             error={error} />
+            <Card data = {renderCardContent()} />
         </main>
-      
+        
+       <Footer onClickHandler={tryAgainHandler} />
     </div>
   );
 }
