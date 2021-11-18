@@ -13,6 +13,7 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import WeatherDetails from '../../components/WeatherDetails/WeatherDetails';
 import Preview from '../../components/Preview/Preview';
 import ErrorNotice from '../../components/ErrorNotice/ErrorNotice';
+import PlaceDetails from '../../components/PlaceDetails/PlaceDetails';
 
 
 const App = () => {
@@ -47,11 +48,7 @@ const App = () => {
     const API_KEY = "c51cdb45bfc78f8fb3e3a788ef360064"
     const API_URL = 'https://api.openweathermap.org/data/2.5/weather';
     const URL = API_URL + `?q=${searchInput}&appid=${API_KEY}&units=metric`;
-    // setSearchInput('');
-    // setDescription('');
-    // setTemprature(null);
-    // setError(false);
-    // setLoading(true);
+    
 
     Axios.get(URL)
     .then(res => {
@@ -97,6 +94,18 @@ const App = () => {
 
   };
 
+  const renderDetails = () => {
+   
+   
+    let detailsContent = <PlaceDetails city = "Toronto"
+                                        country = "CA"
+                                        descriptionText = "Snow"
+    
+    />
+
+    return detailsContent
+  }
+
 
 
   return (
@@ -113,7 +122,10 @@ const App = () => {
             onChangeHandler={searchBarHandler}
             onClickHandler={updateWeather}
             error={error} />
-            <Card data = {renderCardContent()} />
+            <div className="CardSection">
+            <Card data = {renderCardContent()} type = "Card" />
+            <Card data = {renderDetails()} type = "DetailsCard" />
+            </div>
         </main>
         
        <Footer onClickHandler={tryAgainHandler} />

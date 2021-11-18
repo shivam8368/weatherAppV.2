@@ -1,0 +1,11 @@
+.FeelsLIkeWrapper {
+    color: #CCCCCC;
+    font-size: 3rem;
+    margin: .5rem 0;
+}
+.FeelsLIkeWrapper p {
+    margin-top: 2px;
+}
+.FeelsLIkeWrapper .FeelsLIkeSymbol {
+    font-size: 3rem;
+}

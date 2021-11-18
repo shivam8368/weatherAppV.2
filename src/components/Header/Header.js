@@ -5,7 +5,7 @@ import Logo from '../../elements/Logo/Logo'
 const Header = ({color, onClickHandler}) => {
     return (
         
-        <header className = "header" style = {{backgroundColor : color }}>
+        <header className = "Header" style = {{backgroundColor : color }}>
             <Logo colorScheme = {'light'} clicked = {onClickHandler} />
         </header>
     )

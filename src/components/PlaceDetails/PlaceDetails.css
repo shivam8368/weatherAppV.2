@@ -1,35 +1,23 @@
-.WeatherDetailsWrapper {
+.PlaceDetailsWrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 2rem;
+    align-self: flex-start;
     -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
     -moz-animation: fadein 2s; /* Firefox < 16 */
     -ms-animation: fadein 2s; /* Internet Explorer */
     -o-animation: fadein 2s; /* Opera < 12.1 */
     animation: fadein 2s;
 }
-.WeatherIconWrapper {
-    align-self: center;
-}
-.WeatherTempWrapper {
-    display: flex;
-    align-self: flex-start;
-    flex-direction: column;
-}
-.WeatherDataWrapper {
-    display: flex;
-    align-self: flex-start;
-    flex-direction: column;
-}
+
 @media only screen and (min-width:600px) {
-    .WeatherDetailsWrapper {
-        flex-direction: row;
-        justify-content: space-around;
+    .PlaceDetailsWrapper {
+        flex-direction: column;
+        justify-content:space-around ;
+        margin-left: auto;
     }
-    .WeatherDataWrapper {
-        align-self: center;
-    }
+    
 }
 @keyframes fadein {
     from { opacity: 0; }

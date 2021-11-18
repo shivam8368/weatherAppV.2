@@ -1,9 +1,9 @@
 import React from 'react'
 import './Card.css'
 
-const Card = ({data}) => {
+const Card = ({data, type}) => {
     return (
-        <div className = "Card">
+        <div className = {type}>
             {data}
         </div>
     )
