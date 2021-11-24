@@ -1,4 +1,4 @@
-import react, {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 import './App.css';
 import Axios from 'axios';
@@ -14,15 +14,27 @@ import WeatherDetails from '../../components/WeatherDetails/WeatherDetails';
 import Preview from '../../components/Preview/Preview';
 import ErrorNotice from '../../components/ErrorNotice/ErrorNotice';
 import PlaceDetails from '../../components/PlaceDetails/PlaceDetails';
+import WeatherPrediction from '../../components/WeatherPrediction/WeatherPrediction';
 
 
 const App = () => {
   
   const [searchInput, setSearchInput] = useState('');
-  const [temprature, setTemprature] = useState(0);
+  const [temprature, setTemprature] = useState(null);
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [tempFeelsLike, setTempFeelsLike] =  useState(null);
+  const [humidity, setHumidity] = useState(null);
+  const [winds, setWinds] = useState(null);
+  const [precipitation, setPrecipitation] = useState(null);
+
+  const [city, setCity] = useState('')
+  const [country, setCountry] = useState('')
+
+
+  const [longitude, setLongitude] = useState(null)
+  const [latitude, setLatitude] = useState(null)
 
 
   // Update state with current search bar input
@@ -39,11 +51,18 @@ const App = () => {
      setDescription('');
      setTemprature(null);
      setError(false);
+     setTempFeelsLike(null)
+     setHumidity(null)
+     setWinds(null )
+     setCountry('')
+     setCity('')
+     setLongitude(null)
+     setLatitude(null)
 
      
   };
 
-  // Fetch weather information and update state
+  // Fetch current weather information and update state
   const updateWeather = () => {
     const API_KEY = "c51cdb45bfc78f8fb3e3a788ef360064"
     const API_URL = 'https://api.openweathermap.org/data/2.5/weather';
@@ -58,8 +77,16 @@ const App = () => {
           setLoading(false);
           setTemprature(res.data.main.temp);
           setDescription(res.data.weather[0].main);
+          setTempFeelsLike(res.data.main.feels_like)
+          setHumidity(res.data.main.humidity)
+          setWinds(((res.data.wind.speed) * 3.6).toFixed(1) )
+          setCountry(res.data.sys.country)
+          setCity(res.data.name)
+          setLongitude(res.data.coord.lon)
+          setLatitude(res.data.coord.lat)
+
+          // setPrecipitation(res)
           setSearchInput('');
-          console.log(res.data);
 
         } else {
           throw res.data.cod
@@ -77,6 +104,28 @@ const App = () => {
   }
 
 
+  useEffect(() => {
+
+    
+      const API_KEY = "c51cdb45bfc78f8fb3e3a788ef360064"
+      const API_URL = 'https://api.openweathermap.org/data/2.5/onecall';
+      const URL = API_URL + `?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+
+
+      Axios.get(URL)
+      .then(res => {
+        console.log(res)
+      })
+
+
+    
+
+
+
+  }, [longitude])
+
+// rendering current weather details
+
   const renderCardContent =  () => {
 
     let cardContent = <Preview />
@@ -86,7 +135,16 @@ const App = () => {
     } else if (error) {
       cardContent = <ErrorNotice onChangeHandler = {tryAgainHandler} />
     } else if (temprature && description !== '') {
-      cardContent = <WeatherDetails descriptionText = {description} temperature = {temprature} />
+
+      // descriptionText, temperature, precipitation, humidity, wind, feelsTemprature, iconType
+      cardContent = <WeatherDetails 
+                    descriptionText = {description} 
+                    temperature = {temprature}
+                    iconType = "Icon"
+                    humidity = {humidity}
+                    wind = {winds}
+                    feelsTemprature = {tempFeelsLike}
+                    />
     };
 
 
@@ -94,18 +152,35 @@ const App = () => {
 
   };
 
+// rendering location details 
+
   const renderDetails = () => {
    
    
-    let detailsContent = <PlaceDetails city = "Toronto"
-                                        country = "CA"
-                                        descriptionText = "Snow"
+    let detailsContent = <PlaceDetails city = {city}
+                                        country = {country}
+                                        descriptionText = {description}
     
     />
 
     return detailsContent
   }
 
+
+  // rendering weather predictions 
+
+  const renderPredictions = () => {
+
+    let predictionContent  = <WeatherPrediction
+                              type = "Snow"
+                              minDegrees = "2"
+                              maxDegrees = "5"
+                              iconType = "PredictionIcon"
+                              unixTime = "1618308000"
+    />
+
+    return predictionContent;
+  }
 
 
   return (
@@ -129,6 +204,10 @@ const App = () => {
         </main>
         
        <Footer onClickHandler={tryAgainHandler} />
+
+       <div className="predictions">
+         <Card data= {renderPredictions()}type = "PredictionCard"/>
+       </div>
     </div>
   );
 }

@@ -42,3 +42,26 @@
         max-height: 246px;
     }   
 }
+
+
+/* prediction Card */
+
+
+.PredictionCard {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    background: #F6F5FA;
+    width: 50%;
+    height: 100%;
+    max-height: 500px;
+    margin-left: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.16);
+}
+@media only screen and (min-width:600px) {
+    .PredictionCard {
+        max-width: 170px;
+        max-height: 246px;
+    }   
+}

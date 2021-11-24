@@ -1,0 +1,8 @@
+.MinTemperatureWrapper {
+    color: #333333;
+    font-size: 1rem;
+    margin: .5rem 0;
+}
+.MinTemperatureWrapper .MinTemperatureSymbol {
+    font-size: 1rem;
+}

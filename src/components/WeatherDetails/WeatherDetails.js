@@ -3,15 +3,15 @@ import './WeatherDetails.css'
 
 import Icon from '../../elements/Icon/Icon';
 import Temprature from './Temprature/Temprature';
-import Date from '../PlaceDetails/Date/Date';
+
 import Details from './Details/Details';
 import FeelsLike from './FeelsLIke/FeelsLike';
 
-const WeatherDetails = ({descriptionText, temperature, precipitation, humidity, wind, speedConverter, feelsTemprature}) => {
+const WeatherDetails = ({descriptionText, temperature, precipitation, humidity, wind, feelsTemprature, iconType}) => {
     return (
         <div className= "WeatherDetailsWrapper">
             <div className= "WeatherIconWrapper">
-                <Icon type={descriptionText} />    
+                <Icon type={descriptionText} iconType = {iconType} />    
             </div>
             <div className= "WeatherTempWrapper">
                 <Temprature degrees={temperature} />
@@ -24,7 +24,6 @@ const WeatherDetails = ({descriptionText, temperature, precipitation, humidity, 
                     precipitation = {precipitation}
                     humidity = {humidity}
                     wind = {wind}
-                    speedConverter = {speedConverter}
 
                 />
             </div>
