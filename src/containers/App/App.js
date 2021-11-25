@@ -36,6 +36,11 @@ const App = () => {
   const [longitude, setLongitude] = useState(null)
   const [latitude, setLatitude] = useState(null)
 
+  const [date, setDate] = useState([])
+  const [predictedDescription, setPredictionDescription] = useState([])
+  const [minTemprature, setMinTemprature] = useState([])
+  const [maxTemprature, setMaxTemprature] = useState([])
+
 
   // Update state with current search bar input
 
@@ -84,7 +89,7 @@ const App = () => {
           setCity(res.data.name)
           setLongitude(res.data.coord.lon)
           setLatitude(res.data.coord.lat)
-
+          console.log(res.data)
           // setPrecipitation(res)
           setSearchInput('');
 
@@ -109,12 +114,25 @@ const App = () => {
     
       const API_KEY = "c51cdb45bfc78f8fb3e3a788ef360064"
       const API_URL = 'https://api.openweathermap.org/data/2.5/onecall';
-      const URL = API_URL + `?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+      const URL = API_URL + `?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
 
 
       Axios.get(URL)
       .then(res => {
-        console.log(res)
+        if(res.status === 200){
+          console.log(res.data)
+          console.log(Object.keys(res.data.daily))
+
+          for(const key of Object.keys(res.data.daily).slice(1)){
+            // console.log(`${key} = ${res.data.daily[key].dt}`)
+            setDate(date => [...date , res.data.daily[key].dt]);
+            setPredictionDescription(predictedDescription => [...predictedDescription , res.data.daily[key].weather[0].main]);
+            setMinTemprature(minTemprature => [...minTemprature , Math.round((res.data.daily[key].temp.min))])
+            setMaxTemprature(maxTemprature => [...maxTemprature , Math.round((res.data.daily[key].temp.max))])
+
+          }
+        }
+        
       })
 
 
@@ -122,7 +140,7 @@ const App = () => {
 
 
 
-  }, [longitude])
+  }, [city])
 
 // rendering current weather details
 
