@@ -36,10 +36,12 @@ const App = () => {
   const [longitude, setLongitude] = useState(null)
   const [latitude, setLatitude] = useState(null)
 
-  const [date, setDate] = useState([])
-  const [predictedDescription, setPredictionDescription] = useState([])
-  const [minTemprature, setMinTemprature] = useState([])
-  const [maxTemprature, setMaxTemprature] = useState([])
+  // const [date, setDate] = useState([])
+  // const [predictedDescription, setPredictionDescription] = useState([])
+  // const [minTemprature, setMinTemprature] = useState([])
+  // const [maxTemprature, setMaxTemprature] = useState([])
+
+  const [prediction, setPrediction] = useState();
 
 
   // Update state with current search bar input
@@ -121,26 +123,33 @@ const App = () => {
       .then(res => {
         if(res.status === 200){
           console.log(res.data)
-          console.log(Object.keys(res.data.daily))
+          // console.log(Object.keys(res.data.daily))
 
-          for(const key of Object.keys(res.data.daily).slice(1)){
-            // console.log(`${key} = ${res.data.daily[key].dt}`)
-            setDate(date => [...date , res.data.daily[key].dt]);
-            setPredictionDescription(predictedDescription => [...predictedDescription , res.data.daily[key].weather[0].main]);
-            setMinTemprature(minTemprature => [...minTemprature , Math.round((res.data.daily[key].temp.min))])
-            setMaxTemprature(maxTemprature => [...maxTemprature , Math.round((res.data.daily[key].temp.max))])
+          setPrediction((res.data.daily).slice(1).map(d => {return{
+            date:d.dt,
+            description: d.weather[0].main,
+            minTemprature : d.temp.min,
+            maxTemprature : d.temp.max
+          }}))
+
+          // for(const key of Object.keys(res.data.daily).slice(1)){
+          //   console.log(`${key} = ${res.data.daily[key].dt}`)
+            // setDate(date => [...date , res.data.daily[key].dt]);
+            // setPredictionDescription(predictedDescription => [...predictedDescription , res.data.daily[key].weather[0].main]);
+            // setMinTemprature(minTemprature => [...minTemprature , Math.round((res.data.daily[key].temp.min))])
+            // setMaxTemprature(maxTemprature => [...maxTemprature , Math.round((res.data.daily[key].temp.max))])
 
           }
         }
         
-      })
-
-
-    
-
-
+      )
 
   }, [city])
+
+
+  useEffect(()=> {
+    console.log(prediction)
+  }, [prediction])
 
 // rendering current weather details
 
@@ -189,14 +198,22 @@ const App = () => {
 
   const renderPredictions = () => {
 
-    let predictionContent  = <WeatherPrediction
-                              type = "Snow"
-                              minDegrees = "2"
-                              maxDegrees = "5"
-                              iconType = "PredictionIcon"
-                              unixTime = "1618308000"
-    />
+    
 
+
+    let predictionContent  = prediction  && prediction.map((p, index) => (
+      <div key={index}  >
+        {/* type, minDegrees, maxDegrees, iconType, unixTime */}
+        <WeatherPrediction type = {p.description}   
+                           minDegrees = {p.minTemprature}
+                           maxDegrees = {p.maxTemprature}
+                           iconType = "PredictionIcon"
+                           unixTime = {p.date}
+        />
+      </div>
+    ))
+
+      
     return predictionContent;
   }
 
@@ -223,9 +240,9 @@ const App = () => {
         
        <Footer onClickHandler={tryAgainHandler} />
 
-       <div className="predictions">
-         <Card data= {renderPredictions()}type = "PredictionCard"/>
-       </div>
+      <div className="predictions">
+        {renderPredictions()}
+      </div>
     </div>
   );
 }

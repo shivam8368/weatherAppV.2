@@ -28,3 +28,8 @@ const WeatherPrediction = ({type, minDegrees, maxDegrees, iconType, unixTime}) =
 }
 
 export default WeatherPrediction
+
+
+
+
+

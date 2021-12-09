@@ -49,7 +49,6 @@
 
 .PredictionCard {
     display: flex;
-    justify-content: flex-end;
     align-items: flex-end;
     background: #F6F5FA;
     width: 50%;

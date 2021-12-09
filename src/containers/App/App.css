@@ -16,6 +16,12 @@
     flex-direction: row;
 } 
 
+.predictions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 @media only screen and (min-width:600px) {
     .AppMain {
         height: 460px;
