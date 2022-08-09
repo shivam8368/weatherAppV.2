@@ -14,13 +14,13 @@
 }
 .WeatherTempWrapper {
     display: flex;
-    align-self: flex-start;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-around;
 }
 .WeatherDataWrapper {
     display: flex;
-    align-self: flex-start;
     flex-direction: column;
+    align-self: center;
 }
 @media only screen and (min-width:600px) {
     .WeatherDetailsWrapper {
@@ -29,6 +29,12 @@
     }
     .WeatherDataWrapper {
         align-self: center;
+    }
+
+    .WeatherTempWrapper {
+        display: flex;
+        align-self: flex-start;
+        flex-direction: column;
     }
 }
 @keyframes fadein {

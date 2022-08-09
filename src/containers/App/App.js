@@ -71,7 +71,7 @@ const App = () => {
 
   // Fetch current weather information and update state
   const updateWeather = () => {
-    const API_KEY = "c51cdb45bfc78f8fb3e3a788ef360064"
+    const API_KEY = "5b74f3e2b0c2c1ff46f2fcb116ba8077"
     const API_URL = 'https://api.openweathermap.org/data/2.5/weather';
     const URL = API_URL + `?q=${searchInput}&appid=${API_KEY}&units=metric`;
     
@@ -111,40 +111,31 @@ const App = () => {
   }
 
 
-  useEffect(() => {
+  // wether prediction ---------------------->
 
-    
-      const API_KEY = "c51cdb45bfc78f8fb3e3a788ef360064"
-      const API_URL = 'https://api.openweathermap.org/data/2.5/onecall';
-      const URL = API_URL + `?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
+      const API_KEY = "5b74f3e2b0c2c1ff46f2fcb116ba8077"
+      const API_URL2 = 'https://api.openweathermap.org/data/2.5/onecall';
+      const URL2 = API_URL2 + `?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
 
-
-      Axios.get(URL)
+  Axios.get(URL2)
       .then(res => {
         if(res.status === 200){
           console.log(res.data)
           // console.log(Object.keys(res.data.daily))
 
-          setPrediction((res.data.daily).slice(1).map(d => {return{
+          setPrediction((res.data.daily).slice(2).map(d => {return{
             date:d.dt,
             description: d.weather[0].main,
             minTemprature : d.temp.min,
             maxTemprature : d.temp.max
           }}))
 
-          // for(const key of Object.keys(res.data.daily).slice(1)){
-          //   console.log(`${key} = ${res.data.daily[key].dt}`)
-            // setDate(date => [...date , res.data.daily[key].dt]);
-            // setPredictionDescription(predictedDescription => [...predictedDescription , res.data.daily[key].weather[0].main]);
-            // setMinTemprature(minTemprature => [...minTemprature , Math.round((res.data.daily[key].temp.min))])
-            // setMaxTemprature(maxTemprature => [...maxTemprature , Math.round((res.data.daily[key].temp.max))])
 
           }
         }
         
       )
 
-  }, [city])
 
 
   useEffect(()=> {
@@ -225,7 +216,8 @@ const App = () => {
             // Set header color based on weather condition; if error, set color to red
             (error) ? "error" : `"${description}"`
           ]}
-          onClickHandler={tryAgainHandler} />
+          onClickHandler={tryAgainHandler}
+          logoName="MY WEATHER" />
         <main className="AppMain">
           <SearchBar
             value={searchInput}
@@ -238,11 +230,13 @@ const App = () => {
             </div>
         </main>
         
-       <Footer onClickHandler={tryAgainHandler} />
-
+       <Footer logoName="PREDICTIONS" onClickHandler={tryAgainHandler} />
+``
       <div className="predictions">
         {renderPredictions()}
       </div>
+
+      <Footer logoName= "MY WEATHER" onClickHandler={tryAgainHandler} />
     </div>
   );
 }

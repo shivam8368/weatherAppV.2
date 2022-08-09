@@ -6,3 +6,15 @@
 .MaxTempratureWrapper .MaxTempratureSymbol {
     font-size:1rem;
 }
+
+@media only screen and (min-width:600px) {
+    
+    .MaxTempratureWrapper {
+    color: #333333;
+    font-size: 1rem;
+    margin: .5rem 0;
+}
+.MaxTempratureWrapper .MaxTempratureSymbol {
+    font-size:1rem;
+}
+}

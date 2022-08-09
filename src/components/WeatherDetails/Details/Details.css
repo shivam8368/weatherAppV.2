@@ -1,8 +1,20 @@
 .DetailsWrapper  p {
     color: #333333;
-    font-size: 1.2rem;
+    font-size: .9rem;
     letter-spacing: normal;  
-    line-height: 15px;
+    line-height: 10px;
       
+}
+
+@media only screen and (min-width:600px) {
+
+      .DetailsWrapper  p {
+        color: #333333;
+        font-size: 1.2rem;
+        letter-spacing: normal;  
+        line-height: 15px;
+      
+        }  
+
 }
 
