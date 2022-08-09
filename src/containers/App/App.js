@@ -27,7 +27,6 @@ const App = () => {
   const [tempFeelsLike, setTempFeelsLike] =  useState(null);
   const [humidity, setHumidity] = useState(null);
   const [winds, setWinds] = useState(null);
-  const [precipitation, setPrecipitation] = useState(null);
 
   const [city, setCity] = useState('')
   const [country, setCountry] = useState('')
